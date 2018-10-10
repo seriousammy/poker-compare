@@ -37,7 +37,7 @@ class Hand:
     def get_hand_high_card(self):
         card_value_score_list = self.convert_card_to_value_score_list()
         card_value_score_list_max = max(card_value_score_list)
-        for k, v in CARD_VALUE_SCORING_MAP.items():
+        for v in CARD_VALUE_SCORING_MAP.values():
             if v == card_value_score_list_max:
                 return v
 

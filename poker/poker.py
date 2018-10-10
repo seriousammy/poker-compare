@@ -35,7 +35,7 @@ class Poker:
     def determine_tie_breaker(self, hand_score):
         if hand_score['value'] in [CARD_VALUE_RANK['straight']['value'], CARD_VALUE_RANK['high_card']['value']]:
             return self.tie_breaker_for_straight_or_high_card()
-        elif hand_score['value'] == CARD_VALUE_RANK['flush']['value']:
+        elif hand_score['value'] in [CARD_VALUE_RANK['straight_flush']['value'], CARD_VALUE_RANK['flush']['value'], CARD_VALUE_RANK['royal_flush']['value']]:
             return self.tie_breaker_for_flush()
 
     def rank_score_of_two_hands(self, first_hand_score, second_hand_score):

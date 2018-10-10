@@ -61,6 +61,7 @@ def test_straight_ace_high():
     hand_score = hand.get_score()
     assert hand_score['name'] == 'Straight'
 
+
 def test_royal_flush():
     hand = Hand([Card('A', 'hearts'), Card('K', 'hearts'), Card('Q', 'hearts'), Card('J', 'hearts'), Card('10', 'hearts')])
     hand_score = hand.get_score()

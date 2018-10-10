@@ -58,3 +58,13 @@ def test_poker_game_compare_hands_flush_tie_breaker_high_card(poker_client):
     poker_client.add_single_hand_to_game(second_hand)
     result = poker_client.compare_two_hands()
     assert result == 'Second Hand Wins'
+
+
+def test_poker_game_compare_hands_tie_breaker_royal_flush(poker_client):
+    poker_client.hands = []
+    first_hand = Hand([Card('A', 'hearts'), Card('K', 'hearts'), Card('Q', 'hearts'), Card('J', 'hearts'), Card('10', 'hearts')])
+    second_hand = Hand([Card('A', 'spades'), Card('K', 'spades'), Card('Q', 'spades'), Card('J', 'spades'), Card('10', 'spades')])
+    poker_client.add_single_hand_to_game(first_hand)
+    poker_client.add_single_hand_to_game(second_hand)
+    result = poker_client.compare_two_hands()
+    assert result == 'Second Hand Wins'
