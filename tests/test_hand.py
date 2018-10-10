@@ -48,3 +48,20 @@ def test_straight_flush():
     hand = Hand([Card('2', 'hearts'), Card('3', 'hearts'), Card('4', 'hearts'), Card('5', 'hearts'), Card('6', 'hearts')])
     hand_score = hand.get_score()
     assert hand_score['name'] == 'Straight Flush'
+
+
+def test_straight_ace_low():
+    hand = Hand([Card('A', 'hearts'), Card('2', 'diamonds'), Card('4', 'clubs'), Card('5', 'spades'), Card('3', 'hearts')])
+    hand_score = hand.get_score()
+    assert hand_score['name'] == 'Straight'
+
+
+def test_straight_ace_high():
+    hand = Hand([Card('A', 'hearts'), Card('K', 'diamonds'), Card('Q', 'clubs'), Card('J', 'spades'), Card('10', 'hearts')])
+    hand_score = hand.get_score()
+    assert hand_score['name'] == 'Straight'
+
+def test_royal_flush():
+    hand = Hand([Card('A', 'hearts'), Card('K', 'hearts'), Card('Q', 'hearts'), Card('J', 'hearts'), Card('10', 'hearts')])
+    hand_score = hand.get_score()
+    assert hand_score['name'] == 'Royal Flush'

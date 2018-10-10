@@ -78,18 +78,26 @@ class Hand:
         return False
 
     def is_straight(self):
-        # TODO: This doesn't consider the A as a low card in a straight
         card_value_score_list = self.convert_card_to_value_score_list()
         card_value_score_list_max = max(card_value_score_list)
         card_value_score_list_min = min(card_value_score_list)
         if sorted(card_value_score_list) == [x for x in range(card_value_score_list_min, card_value_score_list_max + 1)]:
             return True
+        elif sorted(card_value_score_list) == [CARD_VALUE_SCORING_MAP['2'], CARD_VALUE_SCORING_MAP['3'], CARD_VALUE_SCORING_MAP['4'], CARD_VALUE_SCORING_MAP['5'], CARD_VALUE_SCORING_MAP['A']]:
+            return True
+        return False
+
+    def is_royal_flush(self):
+        card_value_score_list = self.convert_card_to_value_score_list()
+        if sorted(card_value_score_list) == [x for x in range(CARD_VALUE_SCORING_MAP['10'], CARD_VALUE_SCORING_MAP['A'] + 1)] and self.is_flush():
+            return True
         return False
 
     def get_score(self):
         card_score = CARD_VALUE_RANK['high_card']
-        # TODO: Royal Flush
-        if self.is_straight() and self.is_flush():
+        if self.is_royal_flush():
+            card_score = CARD_VALUE_RANK['royal_flush']
+        elif self.is_straight() and self.is_flush():
             card_score = CARD_VALUE_RANK['straight_flush']
         elif self.is_four_of_a_kind():
             card_score = CARD_VALUE_RANK['four_of_a_kind']
