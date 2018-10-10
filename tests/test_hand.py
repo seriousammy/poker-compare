@@ -5,46 +5,46 @@ from poker.hand import Hand
 def test_hand_initialize():
     hand = Hand([Card('3', 'hearts'), Card('10', 'hearts'), Card('5', 'diamonds'), Card('4', 'hearts'), Card('2', 'hearts')])
     hand_score = hand.get_score()
-    assert hand_score == 'High Card'
+    assert hand_score['name'] == 'High Card'
 
 
 def test_one_pair_hand():
     hand = Hand([Card('3', 'hearts'), Card('4', 'hearts'), Card('5', 'diamonds'), Card('4', 'hearts'), Card('2', 'hearts')])
     hand_score = hand.get_score()
-    assert hand_score == '1 Pair'
+    assert hand_score['name'] == '1 Pair'
 
 
 def test_two_pair_hand():
     hand = Hand([Card('3', 'hearts'), Card('4', 'diamonds'), Card('2', 'diamonds'), Card('4', 'hearts'), Card('2', 'hearts')])
     hand_score = hand.get_score()
-    assert hand_score == '2 Pair'
+    assert hand_score['name'] == '2 Pair'
 
 
 def test_three_of_a_kind():
     hand = Hand([Card('3', 'hearts'), Card('4', 'diamonds'), Card('4', 'spades'), Card('4', 'hearts'), Card('2', 'hearts')])
     hand_score = hand.get_score()
-    assert hand_score == '3 of a Kind'
+    assert hand_score['name'] == '3 of a Kind'
 
 
 def test_flush():
     hand = Hand([Card('3', 'hearts'), Card('4', 'hearts'), Card('2', 'hearts'), Card('7', 'hearts'), Card('8', 'hearts')])
     hand_score = hand.get_score()
-    assert hand_score == 'Flush'
+    assert hand_score['name'] == 'Flush'
 
 
 def test_four_of_a_kind():
     hand = Hand([Card('3', 'hearts'), Card('3', 'diamonds'), Card('3', 'clubs'), Card('3', 'spades'), Card('2', 'hearts')])
     hand_score = hand.get_score()
-    assert hand_score == 'Four of a Kind'
+    assert hand_score['name'] == 'Four of a Kind'
 
 
 def test_straight():
     hand = Hand([Card('2', 'hearts'), Card('3', 'diamonds'), Card('4', 'clubs'), Card('5', 'spades'), Card('6', 'hearts')])
     hand_score = hand.get_score()
-    assert hand_score == 'Straight'
+    assert hand_score['name'] == 'Straight'
 
 
 def test_straight_flush():
     hand = Hand([Card('2', 'hearts'), Card('3', 'hearts'), Card('4', 'hearts'), Card('5', 'hearts'), Card('6', 'hearts')])
     hand_score = hand.get_score()
-    assert hand_score == 'Straight Flush'
+    assert hand_score['name'] == 'Straight Flush'

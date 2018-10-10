@@ -6,7 +6,7 @@ from poker.card_map import CARD_VALUES, CARD_SUITS
 from poker.poker import Poker
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture(scope='function')
 def poker_client():
     card_array = [Card(value, suit) for suit in CARD_SUITS for value in CARD_VALUES]
     deck = Deck(card_array)
