@@ -1,3 +1,6 @@
+from poker.card_map import CARD_VALUE_SCORING_MAP
+
+
 class Hand:
     hand = []
 
@@ -21,6 +24,12 @@ class Hand:
             except KeyError:
                 card_dict.update({card.suit: 1})
         return card_dict
+
+    def convert_card_to_value_score_list(self):
+        card_list = []
+        for card in self.hand:
+            card_list.append(CARD_VALUE_SCORING_MAP[card.value])
+        return card_list
 
     def is_four_of_a_kind(self):
         card_value_dict = self.convert_card_to_value_dict()
@@ -58,16 +67,27 @@ class Hand:
             return True
         return False
 
+    def is_straight(self):
+        # TODO: This doesn't consider the A as a low card in a straight
+        card_value_score_list = self.convert_card_to_value_score_list()
+        card_value_score_list_max = max(card_value_score_list)
+        card_value_score_list_min = min(card_value_score_list)
+        if sorted(card_value_score_list) == [x for x in range(card_value_score_list_min, card_value_score_list_max + 1)]:
+            return True
+        return False
+
     def get_score(self):
         # TODO: Royal Flush
-        # TODO: Straight Flush
+        if self.is_straight() and self.is_flush():
+            return "Straight Flush"
         if self.is_four_of_a_kind():
             return "Four of a Kind"
         elif self.is_full_house():
             return "Full House"
         elif self.is_flush():
             return "Flush"
-        # TODO: Straight
+        elif self.is_straight():
+            return "Straight"
         elif self.is_three_of_a_kind():
             return "3 of a Kind"
         elif self.is_two_pair():
