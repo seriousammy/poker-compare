@@ -1,4 +1,4 @@
-from poker.card_map import CARD_VALUE_SCORING_MAP
+from poker.card_map import CARD_VALUE_SCORING_MAP, CARD_VALUE_RANK
 
 
 class Hand:
@@ -30,6 +30,16 @@ class Hand:
         for card in self.hand:
             card_list.append(CARD_VALUE_SCORING_MAP[card.value])
         return card_list
+
+    def get_first_card_suit(self):
+        return self.hand[0].suit
+
+    def get_hand_high_card(self):
+        card_value_score_list = self.convert_card_to_value_score_list()
+        card_value_score_list_max = max(card_value_score_list)
+        for k, v in CARD_VALUE_SCORING_MAP.items():
+            if v == card_value_score_list_max:
+                return v
 
     def is_four_of_a_kind(self):
         card_value_dict = self.convert_card_to_value_dict()
@@ -77,24 +87,22 @@ class Hand:
         return False
 
     def get_score(self):
+        card_score = CARD_VALUE_RANK['high_card']
         # TODO: Royal Flush
         if self.is_straight() and self.is_flush():
-            return "Straight Flush"
-        if self.is_four_of_a_kind():
-            return "Four of a Kind"
+            card_score = CARD_VALUE_RANK['straight_flush']
+        elif self.is_four_of_a_kind():
+            card_score = CARD_VALUE_RANK['four_of_a_kind']
         elif self.is_full_house():
-            return "Full House"
+            card_score = CARD_VALUE_RANK['full_house']
         elif self.is_flush():
-            return "Flush"
+            card_score = CARD_VALUE_RANK['flush']
         elif self.is_straight():
-            return "Straight"
+            card_score = CARD_VALUE_RANK['straight']
         elif self.is_three_of_a_kind():
-            return "3 of a Kind"
+            card_score = CARD_VALUE_RANK['three_of_a_kind']
         elif self.is_two_pair():
-            return "2 Pair"
+            card_score = CARD_VALUE_RANK['two_pair']
         elif self.is_pair():
-            return "1 Pair"
-        elif self.is_flush():
-            return "Flush"
-        else:
-            return "High Card"
+            card_score = CARD_VALUE_RANK['one_pair']
+        return card_score
