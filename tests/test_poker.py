@@ -68,3 +68,23 @@ def test_poker_game_compare_hands_tie_breaker_royal_flush(poker_client):
     poker_client.add_single_hand_to_game(second_hand)
     result = poker_client.compare_two_hands()
     assert result == 'Second Hand Wins'
+
+
+def test_poker_game_compare_hands_tie_breaker_one_pairs(poker_client):
+    poker_client.hands = []
+    first_hand = Hand([Card('4', 'spades'), Card('4', 'hearts'), Card('7', 'diamonds'), Card('8', 'diamonds'), Card('2', 'hearts')])
+    second_hand = Hand([Card('3', 'spades'), Card('3', 'hearts'), Card('7', 'diamonds'), Card('9', 'hearts'), Card('2', 'hearts')])
+    poker_client.add_single_hand_to_game(first_hand)
+    poker_client.add_single_hand_to_game(second_hand)
+    result = poker_client.compare_two_hands()
+    assert result == 'First Hand Wins'
+
+
+def test_poker_game_compare_hands_tie_breaker_two_pairs(poker_client):
+    poker_client.hands = []
+    first_hand = Hand([Card('4', 'spades'), Card('4', 'hearts'), Card('2', 'diamonds'), Card('2', 'spades'), Card('9', 'hearts')])
+    second_hand = Hand([Card('3', 'spades'), Card('3', 'hearts'), Card('2', 'clubs'), Card('2', 'hearts'), Card('9', 'spades')])
+    poker_client.add_single_hand_to_game(first_hand)
+    poker_client.add_single_hand_to_game(second_hand)
+    result = poker_client.compare_two_hands()
+    assert result == 'First Hand Wins'

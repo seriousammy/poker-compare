@@ -41,6 +41,14 @@ class Hand:
             if v == card_value_score_list_max:
                 return v
 
+    def get_hand_high_pair(self):
+        card_value_dict = self.convert_card_to_value_dict()
+        high_pair_value = 0
+        for k, v in card_value_dict.items():
+            if v == 2:
+                high_pair_value = max([high_pair_value, CARD_VALUE_SCORING_MAP[k]])
+        return high_pair_value
+
     def is_four_of_a_kind(self):
         card_value_dict = self.convert_card_to_value_dict()
         if sorted(list(card_value_dict.values())) == [1, 4]:

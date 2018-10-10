@@ -32,11 +32,21 @@ class Poker:
         else:
             return self.tie_breaker_for_straight_or_high_card()
 
+    def tie_breaker_for_pair(self):
+        first_hand_high_pair = self.hands[0].get_hand_high_pair()
+        second_hand_high_pair = self.hands[1].get_hand_high_pair()
+        if first_hand_high_pair > second_hand_high_pair:
+            return 'First Hand Wins'
+        elif first_hand_high_pair > second_hand_high_pair:
+            return 'Second Hand Wins'
+
     def determine_tie_breaker(self, hand_score):
         if hand_score['value'] in [CARD_VALUE_RANK['straight']['value'], CARD_VALUE_RANK['high_card']['value']]:
             return self.tie_breaker_for_straight_or_high_card()
         elif hand_score['value'] in [CARD_VALUE_RANK['straight_flush']['value'], CARD_VALUE_RANK['flush']['value'], CARD_VALUE_RANK['royal_flush']['value']]:
             return self.tie_breaker_for_flush()
+        elif hand_score['value'] in [CARD_VALUE_RANK['one_pair']['value'], CARD_VALUE_RANK['two_pair']['value']]:
+            return self.tie_breaker_for_pair()
 
     def rank_score_of_two_hands(self, first_hand_score, second_hand_score):
         if first_hand_score['value'] > second_hand_score['value']:
